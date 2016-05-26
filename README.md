@@ -37,11 +37,14 @@ In order to register the chip and assign it to a certain LED, open RFID-Lightboa
   
   
   
-  In void setup() declare the pins that will be used for the LEDs 
-        pinMode(6, OUTPUT);
-         pinMode(9, OUTPUT); 
+  In void setup() declare the pins that will be used for the LEDs. 
+  Example:
+  
+      pinMode(6, OUTPUT);
+      pinMode(9, OUTPUT); 
         
         
+
   The formula for getting the light to swtich on or off with the RFID chip is as follows
   In this case replace Tarr with whichever array you wish to compare to.
   Correspondingly, replace the Tcount with the int associated with your array.
