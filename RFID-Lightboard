@@ -1,0 +1,114 @@
+
+
+
+#include <SPI.h>
+#include <MFRC522.h>
+
+#define SS_PIN 10
+#define RST_PIN 9
+ 
+MFRC522 rfid(SS_PIN, RST_PIN); // Instance of the class
+
+MFRC522::MIFARE_Key key; 
+
+uint32_t Jarr[4] = {0x86,0x61,0xFF,0x4A};
+
+uint32_t Tarr[4] = {0x9C,0xB6,0x39,0xD5};
+
+// Init array that will store new NUID 
+byte nuidPICC[3];
+
+void setup() { 
+  Serial.begin(9600);
+  SPI.begin(); // Init SPI bus
+  rfid.PCD_Init(); // Init MFRC522 
+  pinMode(6, OUTPUT);
+  pinMode(7, OUTPUT);
+  for (byte i = 0; i < 6; i++) {
+    key.keyByte[i] = 0xFF;
+  }
+
+ /* Serial.println(F("This code scan the MIFARE Classsic NUID."));
+ // Serial.print(F("Using the following key:"));
+  printHex(key.keyByte, MFRC522::MF_KEY_SIZE); */
+}
+
+
+ int comeAndGo = 0; 
+ int Jcount = 0;
+ int Tcount = 0;
+ 
+void loop() {
+
+  // Look for new cards
+  if ( ! rfid.PICC_IsNewCardPresent())
+    return;
+
+  // Verify if the NUID has been readed
+  if ( ! rfid.PICC_ReadCardSerial())
+    return;
+
+/*Serial.print(F("PICC type: "));
+  MFRC522::PICC_Type piccType = rfid.PICC_GetType(rfid.uid.sak);
+  Serial.println(rfid.PICC_GetTypeName(piccType)); */
+       
+  
+  for (byte i = 0; i < 4; i++) {
+    nuidPICC[i] = rfid.uid.uidByte[i];
+  }
+
+  if (Jarr[0] == nuidPICC[0] || Jarr[1] == nuidPICC[1] || Jarr[2] == nuidPICC[2] || Jarr[3] == nuidPICC[3]) {
+
+    
+    if (Jcount == 0 ){
+        digitalWrite(6,HIGH);
+        Jcount = 1;
+    }
+     else{
+      digitalWrite(6, LOW);
+      Jcount = 0;
+     }
+      
+  }
+
+  if (Tarr[0] == nuidPICC[0] || Tarr[1] == nuidPICC[1] || Tarr[2] == nuidPICC[2] || Tarr[3] == nuidPICC[3]) {
+
+    if (Tcount == 0 ){
+        digitalWrite(7,HIGH);
+        Tcount = 1;
+    }
+     else{
+      digitalWrite(7, LOW);
+      Tcount = 0;
+     }
+      
+  }
+
+  
+  // Halt PICC
+  rfid.PICC_HaltA();
+
+  // Stop encryption on PCD
+  rfid.PCD_StopCrypto1();
+}
+
+
+/**
+ * Helper routine to dump a byte array as hex values to Serial. 
+ */
+void printHex(byte *buffer, byte bufferSize) {
+  for (byte i = 0; i < bufferSize; i++) {
+    Serial.print(buffer[i] < 0x10 ? " 0" : " ");
+    Serial.print(buffer[i], HEX);
+  }
+}
+
+/**
+ * Helper routine to dump a byte array as dec values to Serial.
+ */
+void printDec(byte *buffer, byte bufferSize) {
+  for (byte i = 0; i < bufferSize; i++) {
+    Serial.print(buffer[i] < 0x10 ? " 0" : " ");
+    Serial.print(buffer[i], DEC);
+  }
+}
