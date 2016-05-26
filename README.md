@@ -18,22 +18,28 @@ In order to register the chip and assign it to a certain LED, open RFID-Lightboa
 
   Create an array that contains the hexadecimal information of the RFID Chips
   The arrays are named by combining the first letter of a persons first name + arr (short for array).
-  Here are some examples of the formatting of these arrays
-        Ex: uint32_t Jarr[4] = {0x86,0x61,0xFF,0x4A}; This is Jerry's RFID chip with corresponding hex value
-        Ex: uint32_t Tarr[4] = {0x9C,0xB6,0x39,0xD5}; This is Tony's RFID chip with corresponding hex value
+  
+  Here are some examples of the formatting of these arrays:
+  
+       uint32_t Jarr[4] = {0x86,0x61,0xFF,0x4A}; 
+       //This is Jerry's RFID chip with corresponding hex value
+       
+       uint32_t Tarr[4] = {0x9C,0xB6,0x39,0xD5};
+       //This is Tony's RFID chip with corresponding hex value
         
         
   Create int for every array created that are are initialized to 0. 
   The naming format is similar to the arrays containing Hex info.
   Combine the  first letter of a persons first name + count
-      Ex: int Jcount = 0;
-      Ex: int Tcount = 0;
+  
+       int Jcount = 0;
+       int Tcount = 0;
   
   
   
   In void setup() declare the pins that will be used for the LEDs 
-        Ex: pinMode(6, OUTPUT); Pin number 6 is going to deliver an output
-        Ex: pinMode(9, OUTPUT); Pin number 9 is going to deliver an output
+        pinMode(6, OUTPUT);
+         pinMode(9, OUTPUT); 
         
         
   The formula for getting the light to swtich on or off with the RFID chip is as follows
