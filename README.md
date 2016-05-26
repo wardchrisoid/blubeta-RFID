@@ -45,10 +45,10 @@ In order to register the chip and assign it to a certain LED, open RFID-Lightboa
         
         
 
-  The formula for getting the light to swtich on or off with the RFID chip is as follows
-  In this case replace Tarr with whichever array you wish to compare to.
-  Correspondingly, replace the Tcount with the int associated with your array.
-  Choose which pin this triggers via digitialWrite. The number being the pin num; HIGH being on; LOW being off
+  The formula for getting the light to swtich on or off with the RFID chip is as follows  
+  In this case, replace Tarr with whichever array you wish to compare to.        
+  Correspondingly, replace the Tcount with the int associated with your array.         
+  Choose which pin this triggers via digitialWrite. The number being the pin num; HIGH being on; LOW being off 
   
       if (Tarr[0] == nuidPICC[0] || Tarr[1] == nuidPICC[1] || Tarr[2] == nuidPICC[2] || Tarr[3] == nuidPICC[3]) {
   
