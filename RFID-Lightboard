@@ -34,7 +34,6 @@ void setup() {
 }
 
 
- int comeAndGo = 0; 
  int Jcount = 0;
  int Tcount = 0;
  
